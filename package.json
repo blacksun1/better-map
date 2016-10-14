@@ -1,0 +1,27 @@
+{
+  "name": "better-map",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "lab --lint --assert code"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blacksun1/better-map.git"
+  },
+  "keywords": [
+    "map",
+    "functional"
+  ],
+  "author": "Simon Bruce <simon@blacksun.cx>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blacksun1/better-map/issues"
+  },
+  "homepage": "https://github.com/blacksun1/better-map#readme",
+  "devDependencies": {
+    "code": "^4.0.0",
+    "lab": "^11.1.0"
+  }
+}
