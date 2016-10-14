@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "lab --lint --assert code"
+    "test": "lab --lint --assert code",
+    "travis": "lab --lint --assert code"
   },
   "repository": {
     "type": "git",
