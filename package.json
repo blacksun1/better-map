@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "lab --lint --assert code",
-    "travis": "lab --lint --assert code"
+    "test": "lab --lint --coverage --assert code",
+    "travis": "lab --lint --coverage --assert code  -r lcov | node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,8 @@
   "homepage": "https://github.com/blacksun1/better-map#readme",
   "devDependencies": {
     "code": "^4.0.0",
-    "lab": "^11.1.0"
+    "coveralls": "^2.11.14",
+    "lab": "^11.1.0",
+    "sinon": "^1.17.6"
   }
 }
