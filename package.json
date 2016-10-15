@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "lab --lint --coverage --assert code",
-    "travis": "lab --lint --coverage --assert code  -r lcov | node_modules/.bin/coveralls"
+    "travis": "lab --lint --coverage --assert code  -r lcov | node_modules/.bin/coveralls",
+    "prepublish": "lab --lint --coverage --assert code"
   },
   "repository": {
     "type": "git",
