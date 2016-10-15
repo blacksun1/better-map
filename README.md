@@ -1,5 +1,8 @@
 # better-map
 
+[![Build Status](https://travis-ci.org/blacksun1/better-map.svg?branch=master)](https://travis-ci.org/blacksun1/better-map)
+[![Coverage Status](https://coveralls.io/repos/github/blacksun1/better-map/badge.svg?branch=master)](https://coveralls.io/github/blacksun1/better-map?branch=master)
+
 Map object extended with extra functional goodness.
 
 ## Usage
