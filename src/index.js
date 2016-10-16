@@ -46,6 +46,19 @@ class BetterMap extends Map {
 
         return previousValue;
     }
+
+    some(callback, thisArg) {
+
+        for (const entry of this) {
+            const key = entry[0];
+            const value = entry[1];
+            if (callback.call(thisArg, value, key, this)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 exports = module.exports = BetterMap;

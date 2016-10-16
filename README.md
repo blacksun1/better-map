@@ -101,3 +101,21 @@ const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 const actual = test.reduce((pv, cv) => pv + cv, 0);
 expect(actual).to.equal(3);
 ```
+
+### some
+
+Takes a `callback` function and a `thisArg` parameter. It calls the `callback`
+function for every entry in the map with the parameter `thisArg` as the
+functions context (this). Returns a `boolean`.
+
+The callback function takes `value`, `key`, `map` and must return a boolean
+value. A value of `true` signifies that a match has been made and will cause the
+loop to end straight away.
+
+```js
+const test = new BetterMap([ ['one', 1], ['two', 2] ]);
+expect(test.some((value) => value === 1)).to.equal(true);
+expect(test.some((value) => value === 3)).to.equal(false);
+```
+
+
