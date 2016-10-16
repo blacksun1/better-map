@@ -23,10 +23,13 @@ class BetterMap extends Map {
         return Array.from(this.values());
     }
 
-    map(callback) {
+    map(callback, thisArg) {
 
         const returnVal = [];
-        this.forEach((value, key) => returnVal.push(callback(value, key, this)));
+        this.forEach((value, key) => {
+
+            returnVal.push(callback.call(thisArg, value, key, this));
+        });
 
         return returnVal;
     }
@@ -36,7 +39,7 @@ class BetterMap extends Map {
         let previousValue = initialValue;
         this.forEach((value, key) => {
 
-            previousValue = callback(previousValue, value, key, this);
+            previousValue = callback.call(null, previousValue, value, key, this);
         });
 
         return previousValue;

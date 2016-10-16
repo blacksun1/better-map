@@ -74,8 +74,9 @@ expect(actual).to.equal([1, 2]);
 
 ### map
 
-Takes a `callback` function which it calls for every entry in the map and
-returns an array of the results of each call.
+Takes a `callback` function and a `thisArg` parameter. It calls the `callback`
+function for every entry in the map with the parameter `thisArg` as the
+functions context (this) and returns an array of the results of each call.
 
 The callback function takes `value`, `key`, `map`. The value of the array entry
 will be the value returned from the callback.
@@ -88,7 +89,7 @@ expect(actual).to.equal(['one = 1', 'two = 2']);
 
 ### reduce
 
-Takes a `callback` and an `initialValue` function. It calls the `callback`
+Takes a `callback` function and an `initialValue` parameter. It calls the `callback`
 function for every entry in the map and returns a single reduced value.
 
 The callback function takes `previousValue`, `value`, `key`, `map`. The
