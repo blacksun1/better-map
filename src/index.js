@@ -26,10 +26,11 @@ class BetterMap extends Map {
     map(callback, thisArg) {
 
         const returnVal = [];
-        this.forEach((value, key) => {
-
+        for (const entry of this) {
+            const key = entry[0];
+            const value = entry[1];
             returnVal.push(callback.call(thisArg, value, key, this));
-        });
+        }
 
         return returnVal;
     }
@@ -37,10 +38,11 @@ class BetterMap extends Map {
     reduce(callback, initialValue) {
 
         let previousValue = initialValue;
-        this.forEach((value, key) => {
-
+        for (const entry of this) {
+            const key = entry[0];
+            const value = entry[1];
             previousValue = callback.call(null, previousValue, value, key, this);
-        });
+        }
 
         return previousValue;
     }
