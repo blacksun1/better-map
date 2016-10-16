@@ -255,4 +255,67 @@ describe('better-map', () => {
             return done();
         });
     });
+
+    describe('filter', () => {
+
+        it('should be a function', (done) => {
+
+            // Assert
+            expect(test.filter).to.exist().and.be.a.function();
+
+            return done();
+        });
+
+        it('should return a new BetterMap with the entries filtered where the callback returns true', (done) => {
+
+            // Arrange
+            const keepKey = 'one';
+            const callback = Sinon.spy((value, key) => key === keepKey);
+
+            // Act
+            const actual = test.filter(callback);
+
+            // Assert
+            expect(actual).to.be.an.instanceOf(Sut);
+            expect(actual).to.not.shallow.equal(test);
+            expect(actual.size).to.equal(1);
+            expect(actual.has(keepKey)).to.be.true();
+            expect(callback.calledTwice).to.be.true();
+
+            return done();
+        });
+
+        it('callback should be called with thisArg as the context, this', (done) => {
+
+            // Arrange
+            const callback = Sinon.stub().returns(true);
+            const thisArg = { a: 'a' };
+
+            // Act
+            test.filter(callback, thisArg);
+
+            // Assert
+            Sinon.assert.calledTwice(callback);
+            expect(callback.thisValues[0]).to.shallow.equal(thisArg);
+            expect(callback.thisValues[1]).to.shallow.equal(thisArg);
+
+            return done();
+        });
+
+        it('callback should be called with a default context, this, of undefined if thisArg is not defined', (done) => {
+
+            // Arrange
+            const callback = Sinon.stub().returns(true);
+
+            // Act
+            test.filter(callback);
+
+            // Assert
+            Sinon.assert.calledTwice(callback);
+            expect(callback.thisValues[0]).to.be.undefined();
+            expect(callback.thisValues[1]).to.be.undefined();
+
+            return done();
+        });
+    });
 });

@@ -27,6 +27,8 @@ Takes an optional parameter of an iteratable object otherwise it returns an
 empty map.
 
 ```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
 const myMap = new BetterMap();
 expect(myMap.size).to.equal(0);
 const myOtherMap = new BetterMap([
@@ -42,6 +44,8 @@ Returns all of the entries as an array in the format of an array of arrays with
 key then value. Entries are returned in the order that they were added.
 
 ```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 const actual = test.entriesArray();
 expect(actual).to.equal([
@@ -56,6 +60,8 @@ Returns all of the keys as an array. Keys are returned in the order that the
 entries were added.
 
 ```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 const actual = test.keysArray();
 expect(actual).to.equal(['one', 'two']);
@@ -67,10 +73,33 @@ Returns all of the values as an array. Values are returned in the order that
 the entries were added.
 
 ```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 const actual = test.valuesArray();
 expect(actual).to.equal([1, 2]);
 ```
+
+### filter
+
+Takes a `callback` function and a `thisArg` parameter. It calls the `callback`
+function for every entry in the map with the parameter `thisArg` as the
+functions context (this) and returns all of the entries where the callback
+returned true as a new better-map.
+
+The callback function takes `value`, `key`, `map`.
+
+```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
+const test = new BetterMap([ ['one', 1], ['two', 2] ]);
+const actual = test.filter((value, key) => value === 2);
+expect(actual).to.be.an.instanceOf(BetterMap);
+expect(actual.size).to.equal(1);
+expect(actual.has('one')).to.be.false();
+expect(actual.has('two')).to.be.true();
+```
+
 
 ### map
 
@@ -82,6 +111,8 @@ The callback function takes `value`, `key`, `map`. The value of the array entry
 will be the value returned from the callback.
 
 ```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 const actual = test.map((value, key) => `${key} = ${value}`);
 expect(actual).to.equal(['one = 1', 'two = 2']);
@@ -97,6 +128,8 @@ value of the array entry will be the value returned from the callback.
 `previousValue` will be `undefined` if an `initialValue` is not given.
 
 ```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 const actual = test.reduce((pv, cv) => pv + cv, 0);
 expect(actual).to.equal(3);
@@ -113,9 +146,9 @@ value. A value of `true` signifies that a match has been made and will cause the
 loop to end straight away.
 
 ```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 expect(test.some((value) => value === 1)).to.equal(true);
 expect(test.some((value) => value === 3)).to.equal(false);
 ```
-
-
