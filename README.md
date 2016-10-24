@@ -67,19 +67,6 @@ const actual = test.keysArray();
 expect(actual).to.equal(['one', 'two']);
 ```
 
-### valuesArray
-
-Returns all of the values as an array. Values are returned in the order that
-the entries were added.
-
-```js
-const BetterMap = require('better-map');
-const expect = require('code').expect;
-const test = new BetterMap([ ['one', 1], ['two', 2] ]);
-const actual = test.valuesArray();
-expect(actual).to.equal([1, 2]);
-```
-
 ### filter
 
 Takes a `callback` function and a `thisArg` parameter. It calls the `callback`
@@ -99,7 +86,6 @@ expect(actual.size).to.equal(1);
 expect(actual.has('one')).to.be.false();
 expect(actual.has('two')).to.be.true();
 ```
-
 
 ### map
 
@@ -151,4 +137,36 @@ const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 expect(test.some((value) => value === 1)).to.equal(true);
 expect(test.some((value) => value === 3)).to.equal(false);
+```
+
+### toObject
+
+Shallowly maps the current object to a object. Asserts that all of the keys for
+the map are strings.
+
+```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
+const test = new BetterMap()
+    .set('one', 1)
+    .set('two', 'a')
+    .set('three', null);
+expect(test.toObject()).to.equal({
+    one: 1,
+    two: 'a',
+    three: null
+});
+```
+
+### valuesArray
+
+Returns all of the values as an array. Values are returned in the order that
+the entries were added.
+
+```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
+const test = new BetterMap([ ['one', 1], ['two', 2] ]);
+const actual = test.valuesArray();
+expect(actual).to.equal([1, 2]);
 ```
