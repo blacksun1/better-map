@@ -318,4 +318,83 @@ describe('better-map', () => {
             return done();
         });
     });
+
+    describe('toObject', () => {
+
+        it('should be a function', (done) => {
+
+            // Assert
+            expect(test.toObject).to.be.a.function();
+
+            return done();
+        });
+
+        it('should throw if any keys are not strings', (done) => {
+
+            // Arrange
+            const testMap = new Sut().set('a', 1).set(1, 'a');
+
+            // Act
+            const act = () => testMap.toObject();
+
+            // Assert
+            expect(act).to.throw(Error);
+
+            return done();
+        });
+
+        it('should return a valid object with simple parameters', (done) => {
+
+            // Arrange
+            const testMap = new Sut()
+                .set('one', 1.23)
+                .set('two', 'a')
+                .set('three', null)
+                .set('four', undefined)
+                .set('five', ['a', 1, null])
+                .set('six', 0)
+                .set('seven', 34)
+                .set('eight', {
+                    'a': 1,
+                    'b': 'b'
+                });
+
+            // Act
+            const actual = testMap.toObject();
+
+            // Assert
+            expect(actual).to.equal({
+                one: 1.23,
+                two: 'a',
+                three: null,
+                four: undefined,
+                five: ['a', 1, null],
+                six: 0,
+                seven: 34,
+                eight: {
+                    'a': 1,
+                    'b': 'b'
+                }
+            });
+
+            return done();
+        });
+
+        it('should return a valid object with a Map as a value', (done) => {
+
+            // Arrange
+            const testMap = new Sut()
+                .set('one', 'a')
+                .set('two', new Map().set('a', 1));
+
+            // Act
+            const actual = testMap.toObject();
+
+            // Assert
+            expect(actual.one).to.shallow.equal(testMap.get('one'));
+            expect(actual.two).to.shallow.equal(testMap.get('two'));
+
+            return done();
+        });
+    });
 });

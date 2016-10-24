@@ -1,5 +1,8 @@
 'use strict';
 
+// Imports
+const Assert = require('assert');
+
 
 class BetterMap extends Map {
 
@@ -13,14 +16,23 @@ class BetterMap extends Map {
         return Array.from(this);
     }
 
+    filter(callback, thisArg) {
+
+        const returnVal = new BetterMap();
+        for (const entry of this) {
+            const key = entry[0];
+            const value = entry[1];
+            if (callback.call(thisArg, value, key, this)) {
+                returnVal.set(key, value);
+            }
+        }
+
+        return returnVal;
+    }
+
     keysArray() {
 
         return Array.from(this.keys());
-    }
-
-    valuesArray() {
-
-        return Array.from(this.values());
     }
 
     map(callback, thisArg) {
@@ -60,18 +72,25 @@ class BetterMap extends Map {
         return false;
     }
 
-    filter(callback, thisArg) {
+    toObject() {
 
-        const returnVal = new BetterMap();
+        const returnVal = {};
+
         for (const entry of this) {
             const key = entry[0];
             const value = entry[1];
-            if (callback.call(thisArg, value, key, this)) {
-                returnVal.set(key, value);
-            }
+
+            Assert(typeof key === 'string', 'toObject can not convert a Map that contains non string keys');
+
+            returnVal[key] = value;
         }
 
         return returnVal;
+    }
+
+    valuesArray() {
+
+        return Array.from(this.values());
     }
 }
 
