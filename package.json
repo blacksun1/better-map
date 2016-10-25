@@ -1,6 +1,6 @@
 {
   "name": "better-map",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Map class with added sugar",
   "main": "src/index.js",
   "scripts": {
