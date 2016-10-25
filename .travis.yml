@@ -1,5 +1,7 @@
 language: node_js
 before_script:
+  - npm install nsp --global
+  - nsp check
 
 script:
   - npm run travis
