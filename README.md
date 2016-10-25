@@ -136,7 +136,7 @@ const BetterMap = require('better-map');
 const expect = require('code').expect;
 const test = new BetterMap([ ['one', 1], ['two', 2] ]);
 expect(test.some((value) => value === 1)).to.equal(true);
-expect(test.some((value) => value === 3)).to.equal(false);
+expect(test.some((value, key) => key === 'three')).to.equal(false);
 ```
 
 ### stringify
