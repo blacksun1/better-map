@@ -397,4 +397,116 @@ describe('better-map', () => {
             return done();
         });
     });
+
+    describe('stringify', () => {
+
+        it('should stringify a simple object', (done) => {
+
+            // Arrange
+            const expected = JSON.stringify({
+                one: 1,
+                two: 2
+            });
+
+            // Act
+            const actual = test.stringify();
+
+            // Assert
+            expect(actual).to.equal(expected);
+
+            return done();
+        });
+
+        it('should stringify an object', (done) => {
+
+            // Arrange
+            const expected = JSON.stringify({
+                one: 1.23,
+                two: {
+                    'a': 1,
+                    'b': null,
+                    'c': 'my string'
+                }
+            });
+            const testMap = new Sut()
+                .set('one', 1.23)
+                .set('two', {
+                    a: 1,
+                    b: null,
+                    c: 'my string'
+                });
+
+            // Act
+            const actual = testMap.stringify();
+
+            // Assert
+            expect(actual).to.equal(expected);
+
+            return done();
+        });
+
+        it('should stringify an child map', (done) => {
+
+            // Arrange
+            const expected = JSON.stringify({
+                one: 1.23,
+                two: {
+                    'a': 1,
+                    'b': null,
+                    'c': 'my string'
+                },
+                four: {
+                    x: {
+                        b: 'a'
+                    }
+                }
+            });
+            const testMap = new Sut()
+                .set('one', 1.23)
+                .set('two', new Map()
+                    .set('a', 1)
+                    .set('b', null)
+                    .set('c', 'my string')
+                )
+                .set('three', () => 'a')
+                .set('four', {
+                    'x': new Map().set('b', 'a')
+                });
+
+            // Act
+            const actual = testMap.stringify();
+
+            // Assert
+            expect(actual).to.equal(expected);
+
+            return done();
+        });
+
+        it('should stringify a simple object with a set', (done) => {
+
+            const testMap = new Sut()
+                .set('one', 1)
+                .set('two', 'a')
+                .set('three', null)
+                .set('four', new Map([['a', 1]]))
+                .set('five', new Set([1, 2, 3]));
+            const expected = JSON.stringify({
+                one: 1,
+                two: 'a',
+                three: null,
+                four: {
+                    a: 1
+                },
+                five: [1, 2, 3]
+            });
+
+            // Act
+            const actual = testMap.stringify();
+
+            // Assert
+            expect(actual).to.equal(expected);
+
+            return done();
+        });
+    });
 });

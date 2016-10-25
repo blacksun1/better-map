@@ -139,6 +139,32 @@ expect(test.some((value) => value === 1)).to.equal(true);
 expect(test.some((value) => value === 3)).to.equal(false);
 ```
 
+### stringify
+
+JSON encode the instance. Will also encode child Map and Set objects.
+
+```js
+const BetterMap = require('better-map');
+const expect = require('code').expect;
+const testMap = new BetterMap()
+    .set('one', 1)
+    .set('two', 'a')
+    .set('three', null)
+    .set('a', [1, 2, 3]);
+const expected = JSON.stringify({
+    one: 1,
+    two: 'a',
+    three: null,
+    a: [1, 2, 3]
+});
+
+// Act
+const actual = testMap.stringify();
+
+// Assert
+expect(actual).to.equal(expected);
+```
+
 ### toObject
 
 Shallowly maps the current object to a object. Asserts that all of the keys for
